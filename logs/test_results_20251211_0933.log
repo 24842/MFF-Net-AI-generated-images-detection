@@ -1,0 +1,17 @@
+2025-12-11 09:33:50 | ============================================================
+2025-12-11 09:33:50 | Test Started at 20251211_0933
+2025-12-11 09:33:50 | Model Path: ./checkpoints/experiemnt_GenImage/fusion_model_dinov3_sdv_best.pt
+2025-12-11 09:33:50 | ============================================================
+2025-12-11 09:33:50 | Loading label file: /data1/zhanghongji/datasets/label_Cha_te.pt
+2025-12-11 09:34:01 | [Sanity Check] Dataset internal keys: 26033
+2025-12-11 09:34:01 | [Sanity Check] First key example: 0_real/0002712b-2b89-4ffc-80e9-2a732cc575f0.jpg
+2025-12-11 09:34:01 | [Sanity Check] Detected Subset: 0_real
+2025-12-11 09:34:04 | Loading checkpoint from ./checkpoints/experiemnt_GenImage/fusion_model_dinov3_sdv_best.pt...
+2025-12-11 09:34:10 | 
+================================================================================
+2025-12-11 09:34:10 | | 0_real                 | AP:0.000000 | ACC:0.837449 | R_ACC:nan | F_ACC:0.837449 | AUC:1.000000
+2025-12-11 09:34:10 | | 1_fake                 | AP:1.000000 | ACC:0.780752 | R_ACC:nan | F_ACC:1.000000 | AUC:0.780752
+2025-12-11 09:34:10 | ================================================================================
+2025-12-11 09:34:10 | | Overall                | AP:0.894402 | ACC:0.813122 | R_ACC:0.893022 | F_ACC:0.837449 | AUC:0.780752
+2025-12-11 09:34:10 | ================================================================================
+2025-12-11 09:34:10 | Detailed results saved to csv: ./results_Chameleon.csv

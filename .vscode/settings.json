@@ -1,0 +1,8 @@
+{
+    // 添加项目根到分析路径，帮助编辑器(如Pylance)解析仓库内的本地包
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}"
+    ],
+    // 可选：如果使用自定义 python 可执行文件，用户可自行改为自己的解释器路径
+    // "python.defaultInterpreterPath": "/home/zhanghongji/anaconda3/envs/myenv/bin/python"
+}
