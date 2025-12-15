@@ -7,7 +7,6 @@
 2025-12-11 09:28:36 | [Sanity Check] First key example: ADM/0_real/ILSVRC2012_val_00000030.JPEG
 2025-12-11 09:28:36 | [Sanity Check] Detected Subset: ADM
 2025-12-11 09:28:38 | Loading checkpoint from ./checkpoints/experiemnt_GenImage/fusion_model_dinov3_sdv_best.pt...
-2025-12-11 09:28:47 | 
 ================================================================================
 2025-12-11 09:28:47 | | ADM                    | AP:0.842204 | ACC:0.657750 | R_ACC:0.812223 | F_ACC:0.985000 | AUC:0.330500
 2025-12-11 09:28:47 | | Midjourney             | AP:0.981165 | ACC:0.896750 | R_ACC:0.977961 | F_ACC:0.986500 | AUC:0.807000
