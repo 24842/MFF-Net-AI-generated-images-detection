@@ -1,4 +1,3 @@
-import argparse
 import os
 import torch
 import torch.optim as optim
@@ -13,44 +12,29 @@ from data.dataset import FusionDataset
 from models import ExpertFusionTransformerDA
 from utils import FocalLoss
 from utils.logger import setup_logger 
-
-def get_args():
-    parser = argparse.ArgumentParser(description="Train Fusion Model")
-    parser.add_argument('--sem_train', type=str, required=True, help='Path to training semantic features')
-    parser.add_argument('--lrhr_train', type=str, required=True, help='Path to training LR/HR features')
-    parser.add_argument('--label_train', type=str, required=True, help='Path to training labels')
-    parser.add_argument('--sem_val', type=str, required=True, help='Path to val semantic features')
-    parser.add_argument('--lrhr_val', type=str, required=True, help='Path to val LR/HR features')
-    parser.add_argument('--label_val', type=str, required=True, help='Path to val labels')
-    
-    parser.add_argument('--save_dir', type=str, default='./checkpoints', help='Directory to save models')
-    parser.add_argument('--log_dir', type=str, default='./logs', help='Directory to save logs')
-    parser.add_argument('--batch_size', type=int, default=32)
-    parser.add_argument('--epochs', type=int, default=100)
-    parser.add_argument('--lr', type=float, default=1e-4)
-    parser.add_argument('--patience', type=int, default=6, help='Early stopping patience') 
-    parser.add_argument('--device', type=str, default='cuda')
-    return parser.parse_args()
+from options.train_options import TrainOptions
 
 def normalize_keys(d):
     return {k.replace("\\", "/"): v for k, v in d.items()}
 
 def main():
-    args = get_args()
-    os.makedirs(args.save_dir, exist_ok=True)
-    os.makedirs(args.log_dir, exist_ok=True)
-    device = torch.device(args.device if torch.cuda.is_available() else 'cpu')
+    opt = TrainOptions().parse()
+    
+    os.makedirs(opt.save_dir, exist_ok=True)
+    
+    device = torch.device(opt.device)
 
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M")
-    logger = setup_logger(args.log_dir, filename=f"train_{timestamp}.log")
+    logger = setup_logger(opt.log_dir, filename=f"train_{timestamp}.log")
     
     logger.info("="*40)
     logger.info(f"Training Started at {timestamp}")
-    logger.info(f"Args: {args}")
+    logger.info(f"Args: {opt}")
     logger.info("="*40)
+    
     logger.info("Loading labels...")
-    label_train = normalize_keys(torch.load(args.label_train, weights_only=False))
-    label_val = normalize_keys(torch.load(args.label_val, weights_only=False))
+    label_train = normalize_keys(torch.load(opt.label_train, weights_only=False))
+    label_val = normalize_keys(torch.load(opt.label_val, weights_only=False))
 
     labels_list = list(label_train.values())
     pos_count = sum(labels_list)
@@ -58,13 +42,13 @@ def main():
     pos_weight = neg_count / pos_count if pos_count > 0 else 1.0
     logger.info(f"Pos samples: {pos_count}, Neg samples: {neg_count}, Pos Weight: {pos_weight:.2f}")
 
-    train_set = FusionDataset(args.sem_train, args.lrhr_train, label_train)
-    val_set = FusionDataset(args.sem_val, args.lrhr_val, label_val)
+    train_set = FusionDataset(opt.sem_train, opt.lrhr_train, label_train)
+    val_set = FusionDataset(opt.sem_val, opt.lrhr_val, label_val)
     
     logger.info(f"Train set size: {len(train_set)}, Val set size: {len(val_set)}")
 
-    train_loader = DataLoader(train_set, batch_size=args.batch_size, shuffle=True, drop_last=True, num_workers=4)
-    val_loader = DataLoader(val_set, batch_size=args.batch_size, shuffle=False, num_workers=4)
+    train_loader = DataLoader(train_set, batch_size=opt.batch_size, shuffle=True, drop_last=True, num_workers=4)
+    val_loader = DataLoader(val_set, batch_size=opt.batch_size, shuffle=False, num_workers=4)
 
     model = ExpertFusionTransformerDA(
         sem_d=train_set.sem_dim, 
@@ -73,43 +57,42 @@ def main():
         n_dom=len(train_set.domains)
     ).to(device)
 
-    opt = optim.Adam([
-        {'params': model.sem_proj.parameters(), 'lr': args.lr},
-        {'params': model.lr_proj.parameters(),  'lr': args.lr},
-        {'params': model.hr_proj.parameters(),  'lr': args.lr},
-        {'params': model.gate.parameters(),      'lr': args.lr},
-        {'params': model.fuse.parameters(),      'lr': args.lr},
-        {'params': model.clf.parameters(),       'lr': args.lr * 10},     
-        {'params': model.dom_clf.parameters(),   'lr': args.lr * 10},
-        {'params': model.sem_cls.parameters(),   'lr': args.lr * 10},
-        {'params': model.lr_cls.parameters(),    'lr': args.lr * 10},
-        {'params': model.hr_cls.parameters(),    'lr': args.lr * 10},
+    opt_optim = optim.Adam([
+        {'params': model.sem_proj.parameters(), 'lr': opt.lr},
+        {'params': model.lr_proj.parameters(),  'lr': opt.lr},
+        {'params': model.hr_proj.parameters(),  'lr': opt.lr},
+        {'params': model.gate.parameters(),      'lr': opt.lr},
+        {'params': model.fuse.parameters(),      'lr': opt.lr},
+        {'params': model.clf.parameters(),       'lr': opt.lr * 10},     
+        {'params': model.dom_clf.parameters(),   'lr': opt.lr * 10},
+        {'params': model.sem_cls.parameters(),   'lr': opt.lr * 10},
+        {'params': model.lr_cls.parameters(),    'lr': opt.lr * 10},
+        {'params': model.hr_cls.parameters(),    'lr': opt.lr * 10},
     ])
 
-    sched = optim.lr_scheduler.ReduceLROnPlateau(opt, mode='max', factor=0.7, patience=5, verbose=True)
+    sched = optim.lr_scheduler.ReduceLROnPlateau(opt_optim, mode='max', factor=0.7, patience=5, verbose=True)
     crit = FocalLoss(alpha=0.75, gamma=2.0)
     dom_crit = torch.nn.CrossEntropyLoss()
 
-   
     best_auc = 0.0
     stale = 0  
     
     logger.info("Start Training Loop...")
     
-    for epoch in range(args.epochs):
+    for epoch in range(opt.epochs):
         model.train()
         losses = {'cls': 0., 'dom': 0., 'con': 0.}
         correct = 0
         total = 0
         
-        pbar = tqdm(train_loader, ncols=100, desc=f'Epoch {epoch+1}/{args.epochs}')
+        pbar = tqdm(train_loader, ncols=100, desc=f'Epoch {epoch+1}/{opt.epochs}')
         for idx, (sem, lr, hr, label, dom) in enumerate(pbar):
             sem, lr, hr, label, dom = sem.to(device), lr.to(device), hr.to(device), label.to(device), dom.to(device)
             
-            p = float(idx + epoch*len(train_loader)) / (args.epochs*len(train_loader))
+            p = float(idx + epoch*len(train_loader)) / (opt.epochs*len(train_loader))
             alpha = 2. / (1. + np.exp(-10*p)) - 1
 
-            opt.zero_grad()
+            opt_optim.zero_grad()
             out, dom_out, sem_o, lr_o, hr_o = model(sem, lr, hr, domain_adapt=True, alpha=alpha)
 
             cls_loss = crit(out.squeeze(), label)
@@ -125,7 +108,7 @@ def main():
             loss.backward()
             
             torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
-            opt.step()
+            opt_optim.step()
 
             losses['cls'] += cls_loss.item()
             losses['dom'] += dom_loss.item()
@@ -146,7 +129,7 @@ def main():
         logger.info(f"Epoch {epoch+1} Train | Cls Loss: {avg_cls_loss:.4f} | Acc: {avg_train_acc:.4f}")
 
         model.eval()
-        preds, gts = [], []
+        preds_list, gts_list = [], []
         with torch.no_grad():
             for sem, lr, hr, label, _ in tqdm(val_loader, desc='Validation', ncols=80):
                 sem, lr, hr = sem.to(device), lr.to(device), hr.to(device)
@@ -168,13 +151,13 @@ def main():
                 final_p[mask_lr] = lr_p[mask_lr]
                 final_p[mask_sem] = sem_p[mask_sem]
                 
-                preds.append(final_p.cpu())
-                gts.append(label)
+                preds_list.append(final_p.cpu())
+                gts_list.append(label)
 
-        if len(preds) > 0:
-            preds = torch.cat(preds).numpy()
-            gts = torch.cat(gts).numpy()
-            val_auc = roc_auc_score(gts, preds)
+        if len(preds_list) > 0:
+            preds_arr = torch.cat(preds_list).numpy()
+            gts_arr = torch.cat(gts_list).numpy()
+            val_auc = roc_auc_score(gts_arr, preds_arr)
         else:
             val_auc = 0.0
 
@@ -184,17 +167,17 @@ def main():
         if val_auc > best_auc:
             best_auc = val_auc
             stale = 0
-            save_path = os.path.join(args.save_dir, 'best_model.pt')
+            save_path = os.path.join(opt.save_dir, 'best_model.pt')
             torch.save(model.state_dict(), save_path)
             logger.info(f">>> New Best Model Saved to {save_path}")
         else:
             stale += 1
-            logger.info(f"No improvement for {stale} epochs. (Patience: {args.patience})")
-            if stale >= args.patience:
+            logger.info(f"No improvement for {stale} epochs. (Patience: {opt.patience})")
+            if stale >= opt.patience:
                 logger.info(f">>> Early stopping triggered at epoch {epoch+1}. Best AUC: {best_auc:.4f}")
                 break
     
-    torch.save(model.state_dict(), os.path.join(args.save_dir, 'final_model.pt'))
+    torch.save(model.state_dict(), os.path.join(opt.save_dir, 'final_model.pt'))
     logger.info("Training Finished.")
 
 if __name__ == '__main__':

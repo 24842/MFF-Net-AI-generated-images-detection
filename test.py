@@ -1,4 +1,3 @@
-import argparse
 import torch
 import os
 import pandas as pd
@@ -11,17 +10,7 @@ from models import ExpertFusionTransformerDA
 from data.dataset import FusionDataset
 from utils import calculate_metrics
 from utils import setup_logger 
-
-def get_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--sem_test', type=str, required=True)
-    parser.add_argument('--lrhr_test', type=str, required=True)
-    parser.add_argument('--label_test', type=str, required=True)
-    parser.add_argument('--model_path', type=str, required=True)
-    parser.add_argument('--save_csv', type=str, default='results.csv')
-    parser.add_argument('--log_dir', type=str, default='./logs', help='Directory to save log files')
-    parser.add_argument('--split_folder', type=str, default='test')
-    return parser.parse_args()
+from options.test_options import TestOptions
 
 def get_subset_name(path, split_folder='test'):
     path = str(path).replace('\\', '/')
@@ -46,39 +35,39 @@ def get_subset_name(path, split_folder='test'):
     return "Unknown"
 
 def main():
-    args = get_args()
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    opt = TestOptions().parse()
+    device = opt.device
 
-    os.makedirs(args.log_dir, exist_ok=True)
+    os.makedirs(opt.log_dir, exist_ok=True)
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M")
     log_filename = f"test_results_{timestamp}.log"
 
-    logger = setup_logger(args.log_dir, filename=log_filename)
+    logger = setup_logger(opt.log_dir, filename=log_filename)
     logger.info("="*60)
     logger.info(f"Test Started at {timestamp}")
-    logger.info(f"Model Path: {args.model_path}")
+    logger.info(f"Model Path: {opt.model_path}")
     logger.info("="*60)
     
-    logger.info(f"Loading label file: {args.label_test}")
-    raw_label_dict = torch.load(args.label_test, weights_only=False)
+    logger.info(f"Loading label file: {opt.label_test}")
+    raw_label_dict = torch.load(opt.label_test, weights_only=False)
     raw_label_dict = {k.replace("\\", "/"): v for k, v in raw_label_dict.items()}
     
-    dataset = FusionDataset(args.sem_test, args.lrhr_test, raw_label_dict)
+    dataset = FusionDataset(opt.sem_test, opt.lrhr_test, raw_label_dict)
     
     valid_keys = dataset.keys 
     
     logger.info(f"[Sanity Check] Dataset internal keys: {len(valid_keys)}")
     logger.info(f"[Sanity Check] First key example: {valid_keys[0]}")
-    logger.info(f"[Sanity Check] Detected Subset: {get_subset_name(valid_keys[0], args.split_folder)}")
+    logger.info(f"[Sanity Check] Detected Subset: {get_subset_name(valid_keys[0], opt.split_folder)}")
 
-    loader = DataLoader(dataset, batch_size=64, shuffle=False, num_workers=4)
+    loader = DataLoader(dataset, batch_size=opt.batch_size, shuffle=False, num_workers=4)
     
     model = ExpertFusionTransformerDA(
         sem_d=dataset.sem_dim, lr_d=dataset.lr_dim, hr_d=dataset.hr_dim, n_dom=10
     ).to(device)
     
-    logger.info(f"Loading checkpoint from {args.model_path}...") 
-    ckpt = torch.load(args.model_path, map_location=device, weights_only=False)
+    logger.info(f"Loading checkpoint from {opt.model_path}...") 
+    ckpt = torch.load(opt.model_path, map_location=device, weights_only=False)
     state_dict = {k: v for k, v in ckpt.items() if 'dom_clf' not in k}
     model.load_state_dict(state_dict, strict=False)
     model.eval()
@@ -127,8 +116,7 @@ def main():
         'gt': gts
     })
     
-    # 提取名字
-    df_results['subset'] = df_results['key'].apply(lambda x: get_subset_name(x, args.split_folder))
+    df_results['subset'] = df_results['key'].apply(lambda x: get_subset_name(x, opt.split_folder))
     
     final_metrics_list = []
     
@@ -169,8 +157,8 @@ def main():
     cols = ["Subset", "Count", "AP", "ACC", "R_ACC", "F_ACC", "AUC"]
     df_out = df_out[cols]
     
-    df_out.to_csv(args.save_csv, index=False)
-    logger.info(f"Detailed results saved to csv: {args.save_csv}")
+    df_out.to_csv(opt.save_csv, index=False)
+    logger.info(f"Detailed results saved to csv: {opt.save_csv}")
 
 if __name__ == "__main__":
     main()

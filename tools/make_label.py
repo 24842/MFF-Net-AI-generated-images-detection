@@ -30,7 +30,7 @@ def make_label_dict_total_with_check(root_dir, save_path):
         print(f"[Check] {sub} | real={cnt['real']} | fake={cnt['fake']} | total={cnt['total']}")
 
     torch.save(label_dict, save_path)
-    print(f"[Done] 标签字典完成，共 {len(label_dict)} 张 -> {save_path}")
+    print(f"[Done] Label dictionary completed. Total: {len(label_dict)} images -> {save_path}")
 
 if __name__ == "__main__":
     os.makedirs("/data1/zhanghongji/datasets", exist_ok=True)

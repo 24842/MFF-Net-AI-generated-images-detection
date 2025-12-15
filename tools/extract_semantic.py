@@ -11,11 +11,11 @@ import sys
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-# DINOv3 代码仓库的本地路径
-# 请确保这个路径是 `git clone https://github.com/facebookresearch/dinov3.git` 下载的文件夹
+# Local path to the DINOv3 code repository.
+# Please ensure this path points to the folder cloned from `git clone https://github.com/facebookresearch/dinov3.git`
 DINOV3_REPO_PATH = '/data1/zhanghongji/datasets/github/dinov3'
 
-# DINOv3 ViT-L/16 权重文件的本地路径
+# Local path to the DINOv3 ViT-L/16 weights file
 DINOV3_WEIGHTS_PATH = '/data1/zhanghongji/datasets/github/dinov3_vitl16_pretrain_lvd1689m-8aa4cbdd.pth' 
 
 preprocess = transforms.Compose([
@@ -28,9 +28,9 @@ preprocess = transforms.Compose([
 try:
     model = torch.hub.load(DINOV3_REPO_PATH, 'dinov3_vitl16', source='local', weights=DINOV3_WEIGHTS_PATH)
     model.eval().to(device)
-    print("DINOv3 ViT-L/16 模型加载成功。")
+    print("DINOv3 ViT-L/16 model loaded successfully.")
 except Exception as e:
-    print(f"模型加载失败，请检查 DINOV3 仓库路径和权重路径是否正确。错误: {e}")
+    print(f"Failed to load model. Please check the DINOV3 repository path and weights path. Error: {e}")
     exit()
 
 original_sdpa = F.scaled_dot_product_attention
@@ -48,20 +48,20 @@ def batch_extract_recursive(root_dir, save_path):
     all_imgs = list(root_dir.rglob("*"))
     img_paths = [p for p in all_imgs if p.suffix.lower() in {".jpg", ".jpeg", ".png"}]
     
-    print(f"在 {root_dir} 中找到 {len(img_paths)} 张图片...")
+    print(f"Found {len(img_paths)} images in {root_dir}...")
     
     for img_path in tqdm(img_paths, ncols=80):
-        key = str(img_path.relative_to(root_dir)).replace("\\", "/") # 统一路径分隔符
+        key = str(img_path.relative_to(root_dir)).replace("\\", "/") # Normalize path separators
         try:
             feat = extract_semantic_dinov3(img_path)
             feats[key] = feat
         except Exception as e:
-            print(f"跳过损坏或无法识别的图片: {img_path}，原因: {e}")
+            print(f"Skipping corrupted or unrecognizable image: {img_path}, reason: {e}")
             continue
             
     torch.save(feats, save_path)
-    print(f"[DINOv3] 递归提取完成，共 {len(feats)} 张，已保存到 {save_path}")
-
+    print(f"[DINOv3] Recursive extraction completed, total {len(feats)} images, saved to {save_path}")
+    
 if __name__ == "__main__":
     os.makedirs("/data1/zhanghongji/datasets", exist_ok=True)
 

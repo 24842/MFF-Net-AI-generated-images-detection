@@ -1,6 +1,4 @@
 #!/bin/bash
-
-# 设置 Python 路径，确保能找到 modules
 export PYTHONPATH=$PYTHONPATH:.
 
 DATA_ROOT="/data1/zhanghongji/datasets"

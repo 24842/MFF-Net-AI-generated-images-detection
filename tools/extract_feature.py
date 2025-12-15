@@ -34,15 +34,15 @@ class VGGPerceptualExtractor(nn.Module):
         self.slice4 = nn.Sequential()
         self.slice5 = nn.Sequential()
         
-        for x in range(4):    # 直到relu1_2
+        for x in range(4): 
             self.slice1.add_module(str(x), vgg[x])
-        for x in range(4, 9):  # 直到relu2_2
+        for x in range(4, 9):  
             self.slice2.add_module(str(x), vgg[x])
-        for x in range(9, 16): # 直到relu3_3
+        for x in range(9, 16):  
             self.slice3.add_module(str(x), vgg[x])
-        for x in range(16, 23): # 直到relu4_3
+        for x in range(16, 23):     
             self.slice4.add_module(str(x), vgg[x])
-        for x in range(23, 30): # 直到relu5_3
+        for x in range(23, 30): 
             self.slice5.add_module(str(x), vgg[x])
             
         for param in self.parameters():
@@ -52,7 +52,6 @@ class VGGPerceptualExtractor(nn.Module):
                                     std=[0.229, 0.224, 0.225])
             
     def forward(self, x):
-        # 归一化
         x = self.normalize(x)
         
         h1 = self.slice1(x)   # [B, 64, H, W]
@@ -94,9 +93,8 @@ class EnhancedChannelAdapter(nn.Module):
 
         if channels != int(key):
             if channels > int(key):
-                x = x[:, :int(key), :, :]  # 截断
+                x = x[:, :int(key), :, :]  
             else:
-                # 填充
                 pad_channels = int(key) - channels
                 padding = torch.zeros(x.shape[0], pad_channels, x.shape[2], x.shape[3]).to(x.device)
                 x = torch.cat([x, padding], dim=1)
@@ -247,7 +245,6 @@ def extract_lr_hr_vqvae_with_vgg_lpips(img_path):
 
         return merged
 
-    # 计算总通道数：原图(2) + 残差(2) + VGG LPIPS(5) = 9个特征图，每个32通道 = 288通道
     total_channels = (2 + 2 + 5) * 32  
     lr_combined = merge_features(lr_features, target_channels=total_channels)
     hr_combined = merge_features(hr_features, target_channels=total_channels)
@@ -275,12 +272,11 @@ def batch_extract_target_dirs(root_dir, save_path):
             lr, hr = extract_lr_hr_vqvae(img_path)
             feats[key] = {"lr": lr.cpu(), "hr": hr.cpu()}
         except Exception as e:
-            print(f"处理图像 {img_path} 时出错: {e}")
+            print(f"Error processing image {img_path}: {e}")
             continue
 
     torch.save(feats, save_path)
-    print(f"[VQ-VAE-LR/HR with VGG LPIPS] 提取完成，共 {len(feats)} 张，已保存到 {save_path}")
-
+    print(f"[VQ-VAE-LR/HR with VGG16] Extraction completed, total {len(feats)} images, saved to {save_path}")
 if __name__ == "__main__":
     os.makedirs("/data1/zhanghongji/datasets", exist_ok=True)
     batch_extract_target_dirs("/data1/zhanghongji/datasets/AIDE/train/progan",

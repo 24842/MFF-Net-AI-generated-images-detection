@@ -90,7 +90,7 @@ class EnhancedSRMWithWavelet(nn.Module):
                 coeffs_list.append(wavelet_feat)
                 
             except Exception as e:
-                print(f"小波变换失败: {e}，使用零张量替代")
+                print(f"Wavelet transform failed: {e}. Using zero tensor as fallback.")
                 zero_feat = torch.zeros(1, 4, h, w, dtype=torch.float32, device=x.device)
                 coeffs_list.append(zero_feat)
         
@@ -111,7 +111,7 @@ class EnhancedSRMWithWavelet(nn.Module):
         features = [srm_feat, learnable_feat, wavelet_feat, multiscale_feat]
         for i, feat in enumerate(features):
             if feat.shape[2:] != (H, W):
-                print(f"警告: 特征 {i} 尺寸不匹配 {feat.shape[2:]} vs {(H, W)}")
+                print(f"Warning: Feature {i} size mismatch {feat.shape[2:]} vs {(H, W)}")
                 features[i] = F.interpolate(feat, size=(H, W), mode='bilinear', align_corners=False)
         
         combined = torch.cat(features, dim=1)

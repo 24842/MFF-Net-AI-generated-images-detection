@@ -4,13 +4,6 @@ import sys
 import datetime
 
 def setup_logger(save_dir, filename="train.log", mode='a'):
-    """
-    配置 logger
-    :param save_dir: 日志保存的目录
-    :param filename: 日志文件名
-    :param mode: 'a' 为追加模式 (append), 'w' 为覆盖模式 (write)
-    :return: logger 对象
-    """
     logger = logging.getLogger("DeepFakeDetection")
     logger.setLevel(logging.INFO)
 
