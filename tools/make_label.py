@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 # make_label_dict_total_with_check.py
+import os
 import torch
 from pathlib import Path
 from tqdm import tqdm
-import os
+
 
 def make_label_dict_total_with_check(root_dir, save_path):
     root_dir = Path(root_dir)

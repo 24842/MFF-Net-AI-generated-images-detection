@@ -1,5 +1,5 @@
 # utils/metrics.py
-from sklearn.metrics import average_precision_score, accuracy_score, roc_auc_score
+from sklearn.metrics import roc_auc_score, average_precision_score, accuracy_score
 
 def calculate_metrics(y_true, y_score):
     y_pred = (y_score > 0.5).astype(int)

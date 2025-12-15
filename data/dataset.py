@@ -16,7 +16,6 @@ class FusionDataset(Dataset):
             
         self.domains = sorted(list(set(self.domain_labels.values())))
         self.dom2id = {d: i for i, d in enumerate(self.domains)}
-        
         if self.keys:
             k0 = self.keys[0]
             self.sem_dim = self.sem[k0].shape[0]
@@ -24,7 +23,7 @@ class FusionDataset(Dataset):
             self.hr_dim = self.lrhr[k0]['hr'].shape[0]
         else:
             self.sem_dim, self.lr_dim, self.hr_dim = 640, 2048, 2048
-            
+
         print(f'[Dataset] Loaded {len(self.keys)} samples from {len(self.domains)} domains.')
 
     def __len__(self): return len(self.keys)

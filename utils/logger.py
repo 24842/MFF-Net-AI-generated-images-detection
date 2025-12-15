@@ -1,6 +1,6 @@
 import logging
-import os
 import sys
+import os
 import datetime
 
 def setup_logger(save_dir, filename="train.log", mode='a'):

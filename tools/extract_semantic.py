@@ -6,8 +6,9 @@ from pathlib import Path
 from PIL import Image
 from tqdm import tqdm
 import os
-import torchvision.transforms as transforms
 import sys
+import torchvision.transforms as transforms
+
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 

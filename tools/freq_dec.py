@@ -1,6 +1,7 @@
 import torch
-import torch.fft as fft
 import torch.nn.functional as F
+import torch.fft as fft
+
 
 def freq_decompose(img, low_freq_ratio=0.3):
     # img: [B, C, H, W]
