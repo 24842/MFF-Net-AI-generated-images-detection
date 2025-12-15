@@ -1,0 +1,17 @@
+2025-12-04 12:13:55 | ========================================
+2025-12-04 12:13:55 | Training Started at 20251204_1213
+2025-12-04 12:13:55 | Args: Namespace(sem_train='/data1/zhanghongji/datasets/semantic_dinov3_sdv_train.pt', lrhr_train='/data1/zhanghongji/datasets/lrhr_vgg_sdv_train.pt', label_train='/data1/zhanghongji/datasets/label_sdv_tr.pt', sem_val='/data1/zhanghongji/datasets/semantic_dinov3_sdv_val.pt', lrhr_val='/data1/zhanghongji/datasets/lrhr_vgg_sdv_val.pt', label_val='/data1/zhanghongji/datasets/label_sdv_v.pt', save_dir='./checkpoints/experiment_GenImage', log_dir='./logs', batch_size=32, epochs=100, lr=0.0001, patience=6, device='cuda')
+2025-12-04 12:13:55 | ========================================
+2025-12-04 12:13:55 | Loading labels...
+2025-12-04 12:13:55 | Pos samples: 162000, Neg samples: 162000, Pos Weight: 1.00
+2025-12-04 12:15:10 | Train set size: 323997, Val set size: 12000
+2025-12-04 12:15:13 | Start Training Loop...
+2025-12-04 12:23:18 | Epoch 1 Train | Cls Loss: 0.0148 | Acc: 0.9785
+2025-12-04 12:23:23 | Epoch 1 Val   | AUC: 0.9988 (Best: 0.0000)
+2025-12-04 12:23:26 | >>> New Best Model Saved to ./checkpoints/experiment_GenImage/best_model.pt
+2025-12-04 12:31:28 | Epoch 2 Train | Cls Loss: 0.0102 | Acc: 0.9895
+2025-12-04 12:31:33 | Epoch 2 Val   | AUC: 0.9979 (Best: 0.9988)
+2025-12-04 12:31:33 | No improvement for 1 epochs. (Patience: 6)
+2025-12-04 12:39:40 | Epoch 3 Train | Cls Loss: 0.0094 | Acc: 0.9904
+2025-12-04 12:39:45 | Epoch 3 Val   | AUC: 0.9976 (Best: 0.9988)
+2025-12-04 12:39:45 | No improvement for 2 epochs. (Patience: 6)
