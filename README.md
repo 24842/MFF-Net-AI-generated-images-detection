@@ -27,8 +27,27 @@ Then, install the necessary packages and pycocotools.
 pip install -r requirement.txt
 ```
 ### Dataset
-Training set: [CNNspot](https://github.com/peterwang512/CNNDetection) and [GenImage](https://github.com/Andrew-Zhu/GenImage).\
+Training set: [CNNspot](https://github.com/peterwang512/CNNDetection) and [GenImage](https://github.com/Andrew-Zhu/GenImage).
 
-Test set: [AIGCDetectBenchmark](https://github.com/Ekko-zn/AIGCDetectBenchmark?tab=readme-ov-file), [GenImage](https://github.com/Andrew-Zhu/GenImage) and [Chameleon](https://drive.google.com/file/d/1QLYJMhy0CbBVT01BLkkw7KPPL5BpmxnH/view)
+Test set: [AIGCDetectBenchmark](https://github.com/Ekko-zn/AIGCDetectBenchmark?tab=readme-ov-file), [GenImage](https://github.com/Andrew-Zhu/GenImage) and [Chameleon](https://drive.google.com/file/d/1QLYJMhy0CbBVT01BLkkw7KPPL5BpmxnH/view).
+
+### Usage
+#### Step 1: Feature Extraction
+First, run the following scripts located in the tools directory to obtain high/low-frequency features, semantic features, and labels:
+```bash
+python tools/extract_feature.py
+```
+```bash
+python tools/extract_semantic.py
+```
+```bash
+python tools/make_lable.py
+```
+#### Step 2: Training
+```bash
+bash /scr
+```
+
+
 
 
