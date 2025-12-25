@@ -20,5 +20,15 @@ We test the codes in the following environments, other versions may also be comp
 ### Setup
 First, clone the repository locally.
 ```bash
-git clone 
+git clone git@github.com:24842/MFF-Net-AI-generated-images-detection.git
 ```
+Then, install the necessary packages and pycocotools.
+```bash
+pip install -r requirement.txt
+```
+### Dataset
+Training set: [CNNspot](https://github.com/peterwang512/CNNDetection) and [GenImage](https://github.com/Andrew-Zhu/GenImage).\
+
+Test set: [AIGCDetectBenchmark](https://github.com/Ekko-zn/AIGCDetectBenchmark?tab=readme-ov-file), [GenImage](https://github.com/Andrew-Zhu/GenImage) and [Chameleon](https://drive.google.com/file/d/1QLYJMhy0CbBVT01BLkkw7KPPL5BpmxnH/view)
+
+
