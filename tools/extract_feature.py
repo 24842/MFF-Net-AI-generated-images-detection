@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 # extract_lh_vgg_enhanced.py
+import sys
+import os
+# Ensure project root is on sys.path so local package imports like `models` work
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -9,9 +15,9 @@ import torchvision.transforms as T
 from torchvision.models import resnet50, vgg16
 import tqdm
 import numpy as np
-import os
 
-from models import VQVAE, EnhancedSRMWithWavelet
+from models.vqvae import VQVAE
+from models.srm import EnhancedSRMWithWavelet
 from freq_dec import freq_decompose
 
 device = 'cuda:2' if torch.cuda.is_available() else 'cpu'
