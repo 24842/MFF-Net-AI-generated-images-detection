@@ -8,5 +8,17 @@ To improve generalization in synthetic image detection, we propose MFF-Net. It i
 We propose MFF-Net, a multi-scale fusion framework for universal synthetic image detection. The model employs a hybrid architecture that integrates high/low-frequency features (via image and residual maps) with global semantic features from DINOv3. These multi-source representations are fused through a Gated Attention Transformer within a multi-task learning framework. Finally, an adaptive inference strategy uses a confidence-based gating mechanism to select the most reliable prediction from both specialized experts and fused features.
 
 <div align="center">
-  <img src="images/model.png" alt="MFF-Net Architecture" width="700">
+  <img src="images/MFF-Net.png" alt="MFF-Net Architecture" width="700">
 </div>
+
+### 💻Requirments
+We test the codes in the following environments, other versions may also be compatible:
+* CUDA 12.1
+* Python 3.10.18
+* Pytorch 2.5.1
+
+### Setup
+First, clone the repository locally.
+```bash
+git clone 
+```
