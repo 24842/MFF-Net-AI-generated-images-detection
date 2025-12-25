@@ -6,3 +6,5 @@ To improve generalization in synthetic image detection, we propose MFF-Net. It i
 
 ### 👀Method
 We propose MFF-Net, a multi-scale fusion framework for universal synthetic image detection. The model employs a hybrid architecture that integrates high/low-frequency features (via image and residual maps) with global semantic features from DINOv3. These multi-source representations are fused through a Gated Attention Transformer within a multi-task learning framework. Finally, an adaptive inference strategy uses a confidence-based gating mechanism to select the most reliable prediction from both specialized experts and fused features.
+
+(./image/model.pdf)
