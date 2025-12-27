@@ -45,7 +45,11 @@ python tools/make_lable.py
 ```
 #### Step 2: Training
 ```bash
-bash /scr
+bash /scripts/train.sh
+```
+#### Step 3: Testing
+```bash
+bash /scripts/test.sh
 ```
 
 
