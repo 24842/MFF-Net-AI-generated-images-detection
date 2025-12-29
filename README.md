@@ -52,6 +52,9 @@ bash /scripts/train.sh
 bash /scripts/test.sh
 ```
 
+### Checkpoints
+Our training checkpoints can be downloaded from [link](https://pan.baidu.com/s/1zBYtDykr8PzE9ORoJg9lnA?pwd=mffn).
+
 
 
 
