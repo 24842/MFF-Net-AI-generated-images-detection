@@ -17,7 +17,7 @@ We test the codes in the following environments, other versions may also be comp
 * Python 3.10.18
 * Pytorch 2.5.1
 
-### Setup
+### 🛠️Setup
 First, clone the repository locally.
 ```bash
 git clone git@github.com:24842/MFF-Net-AI-generated-images-detection.git
@@ -45,8 +45,15 @@ python tools/make_lable.py
 ```
 #### Step 2: Training
 ```bash
-bash /scr
+bash /scripts/train.sh
 ```
+#### Step 3: Testing
+```bash
+bash /scripts/test.sh
+```
+
+### Checkpoints
+Our training checkpoints can be downloaded from [link](https://pan.baidu.com/s/1zBYtDykr8PzE9ORoJg9lnA?pwd=mffn).
 
 
 
