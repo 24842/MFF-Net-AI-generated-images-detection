@@ -48,10 +48,14 @@ python tools/make_lable.py
 bash /scripts/train.sh
 ```
 #### Step 3: Testing
+Test AIGCDetectBenchmark and GenImage
 ```bash
 bash /scripts/test.sh
 ```
-
+Test Chameleon
+```bash
+python test1.py
+```
 ### Checkpoints
 Our training checkpoints can be downloaded from [link](https://pan.baidu.com/s/1zBYtDykr8PzE9ORoJg9lnA?pwd=mffn).
 
