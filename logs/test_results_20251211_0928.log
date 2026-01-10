@@ -1,22 +1,24 @@
-2025-12-11 09:28:21 | ============================================================
-2025-12-11 09:28:21 | Test Started at 20251211_0928
-2025-12-11 09:28:21 | Model Path: ./checkpoints/experiemnt_GenImage/fusion_model_dinov3_sdv_best.pt
-2025-12-11 09:28:21 | ============================================================
-2025-12-11 09:28:21 | Loading label file: /data1/zhanghongji/datasets/label_Gen_te.pt
-2025-12-11 09:28:36 | [Sanity Check] Dataset internal keys: 32000
-2025-12-11 09:28:36 | [Sanity Check] First key example: ADM/0_real/ILSVRC2012_val_00000030.JPEG
-2025-12-11 09:28:36 | [Sanity Check] Detected Subset: ADM
-2025-12-11 09:28:38 | Loading checkpoint from ./checkpoints/experiemnt_GenImage/fusion_model_dinov3_sdv_best.pt...
+2026-01-10 03:27:45 | ============================================================
+2026-01-10 03:27:45 | Test Started at 20260110_0327
+2026-01-10 03:27:45 | Model Path: /data1/zhanghongji/datasets/fusion_model_dinov3_sdv_best.pt
+2026-01-10 03:27:45 | ============================================================
+2026-01-10 03:27:45 | Loading label file: /data1/zhanghongji/datasets/label_Gen_te.pt
+2026-01-10 03:27:52 | [Sanity Check] Dataset internal keys: 32000
+2026-01-10 03:27:52 | [Sanity Check] First key example: ADM/0_real/ILSVRC2012_val_00000030.JPEG
+2026-01-10 03:27:52 | [Sanity Check] Detected Subset: ADM
+2026-01-10 03:27:55 | Loading checkpoint from /data1/zhanghongji/datasets/fusion_model_dinov3_sdv_best.pt...
+2026-01-10 03:28:03 | 
 ================================================================================
-2025-12-11 09:28:47 | | ADM                    | AP:0.842204 | ACC:0.657750 | R_ACC:0.812223 | F_ACC:0.985000 | AUC:0.330500
-2025-12-11 09:28:47 | | Midjourney             | AP:0.981165 | ACC:0.896750 | R_ACC:0.977961 | F_ACC:0.986500 | AUC:0.807000
-2025-12-11 09:28:47 | | VQDM                   | AP:0.977403 | ACC:0.879000 | R_ACC:0.972268 | F_ACC:0.984000 | AUC:0.774000
-2025-12-11 09:28:47 | | biggan                 | AP:0.973567 | ACC:0.852000 | R_ACC:0.970024 | F_ACC:0.988000 | AUC:0.716000
-2025-12-11 09:28:47 | | glide                  | AP:0.988551 | ACC:0.913000 | R_ACC:0.987282 | F_ACC:0.986000 | AUC:0.840000
-2025-12-11 09:28:47 | | stable_diffusion_v_1_4 | AP:0.999028 | ACC:0.987250 | R_ACC:0.998755 | F_ACC:0.987000 | AUC:0.987500
-2025-12-11 09:28:47 | | stable_diffusion_v_1_5 | AP:0.998858 | ACC:0.985250 | R_ACC:0.998607 | F_ACC:0.985000 | AUC:0.985500
-2025-12-11 09:28:47 | | wukong                 | AP:0.996691 | ACC:0.966500 | R_ACC:0.996399 | F_ACC:0.986000 | AUC:0.947000
-2025-12-11 09:28:47 | ================================================================================
-2025-12-11 09:28:48 | | Overall                | AP:0.972875 | ACC:0.892188 | R_ACC:0.964140 | F_ACC:0.985938 | AUC:0.798438
-2025-12-11 09:28:48 | ================================================================================
-2025-12-11 09:28:48 | Detailed results saved to csv: ./results_GenImage.csv
+2026-01-10 03:28:03 | | ADM                    | AP:0.8422 | ACC:0.7077 | R_ACC:0.9850 | F_ACC:0.4304 | AUC:0.8122
+2026-01-10 03:28:03 | | Midjourney             | AP:0.9812 | ACC:0.8968 | R_ACC:0.9865 | F_ACC:0.8070 | AUC:0.9780
+2026-01-10 03:28:03 | | VQDM                   | AP:0.9774 | ACC:0.8790 | R_ACC:0.9840 | F_ACC:0.7740 | AUC:0.9723
+2026-01-10 03:28:03 | | biggan                 | AP:0.9736 | ACC:0.8820 | R_ACC:0.9880 | F_ACC:0.7760 | AUC:0.9700
+2026-01-10 03:28:03 | | glide                  | AP:0.9886 | ACC:0.9130 | R_ACC:0.9860 | F_ACC:0.8400 | AUC:0.9873
+2026-01-10 03:28:03 | | stable_diffusion_v_1_4 | AP:0.9990 | ACC:0.9872 | R_ACC:0.9870 | F_ACC:0.9875 | AUC:0.9988
+2026-01-10 03:28:03 | | stable_diffusion_v_1_5 | AP:0.9989 | ACC:0.9852 | R_ACC:0.9850 | F_ACC:0.9855 | AUC:0.9986
+2026-01-10 03:28:03 | | wukong                 | AP:0.9967 | ACC:0.9665 | R_ACC:0.9860 | F_ACC:0.9470 | AUC:0.9964
+2026-01-10 03:28:03 | ================================================================================
+2026-01-10 03:28:03 | | Overall                | AP:0.9729 | ACC:0.9021 | R_ACC:0.9859 | F_ACC:0.8184 | AUC:0.9641 
+2026-01-10 03:28:03 | ================================================================================
+2026-01-10 03:28:03 | Detailed results saved to csv: ./results/GenImage.csv
+
