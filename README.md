@@ -14,7 +14,7 @@ level artifacts, we compute low-level features by extracting high-frequency feat
 We propose MFF-Net, a multi-scale fusion framework for universal synthetic image detection. The model employs a hybrid architecture that integrates high/low-frequency features (via image and residual maps) with global semantic features from DINOv3. These multi-source representations are fused through a Gated Attention Transformer within a multi-task learning framework. Finally, an adaptive inference strategy uses a confidence-based gating mechanism to select the most reliable prediction from both specialized experts and fused features.
 
 <div align="center">
-  <img src="images/MFF-Net.pdf" alt="MFF-Net Architecture" width="700">
+  <img src="images/MFF-Net.png" alt="MFF-Net Architecture" width="700">
 </div>
 
 ### 💻Requirments
