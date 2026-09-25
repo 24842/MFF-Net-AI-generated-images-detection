@@ -29,7 +29,7 @@ pip install -r requirement.txt
 ### Dataset
 Training set: [CNNspot](https://github.com/peterwang512/CNNDetection) and [GenImage](https://github.com/Andrew-Zhu/GenImage).
 
-Test set: [AIGCDetectBenchmark](https://github.com/Ekko-zn/AIGCDetectBenchmark?tab=readme-ov-file), [GenImage](https://github.com/Andrew-Zhu/GenImage) and [Chameleon](https://drive.google.com/file/d/1QLYJMhy0CbBVT01BLkkw7KPPL5BpmxnH/view).
+Test set: [AIGCDetectBenchmark](https://github.com/Ekko-zn/AIGCDetectBenchmark?tab=readme-ov-file), [GenImage](https://github.com/Andrew-Zhu/GenImage), [DFBench](https://github.com/IntMeGroup/DFBench) and [Chameleon](https://drive.google.com/file/d/1QLYJMhy0CbBVT01BLkkw7KPPL5BpmxnH/view).
 
 ### Usage
 #### Step 1: Feature Extraction
@@ -48,13 +48,13 @@ python tools/make_lable.py
 bash /scripts/train.sh
 ```
 #### Step 3: Testing
-Test AIGCDetectBenchmark and GenImage
+Test AIGCDetectBenchmark, GenImage and DFBench 
 ```bash
 bash /scripts/test.sh
 ```
 Test Chameleon
 ```bash
-python test1.py
+python test_Chaemleon.py
 ```
 ### Checkpoints
 Our training checkpoints can be downloaded from [link](https://pan.baidu.com/s/1zBYtDykr8PzE9ORoJg9lnA?pwd=mffn).
