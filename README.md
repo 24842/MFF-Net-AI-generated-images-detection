@@ -1,8 +1,8 @@
-# MFF-Net-AI-generated-images-detection
+# MFF-Net: Multi-view feature fusion network for AI-generated image detection
 ## 📖Introduction
-This repository contains the implementation of the paper: "MFF-Net: Multi-scale Feature Fusion Network for Universal AI-generated Image Detection"
+This repository contains the implementation of the paper: "MFF-Net: Multi-view feature fusion network for AI-generated image detection". [link](https://www.sciencedirect.com/science/article/pii/S0957417426032987lid=rcjae1x11dvv&utm_source=braze&utm_medium=email&utm_campaign=STMJ_220042_AUTH_SERV_PPUB&utm_content=220042_AUTSERVOTR_MAIN_NOAB_SINGLE_ALL&utm_term=STMJ_ONB_PUB_AUTH_STMJ_20260520&DGCID=STMJ_220042_AUTH_SERV_PPUB&se_la=68fdf2e64b8d62a816765c07&se_pr=4579622313)
 
-### Abstract:
+### 📚Abstract:
 With the rapid advancement of generative models, the emergence of high-fidelity synthetic images has raised significant security concerns regarding disinformation and forgery, leading to the demand for detectors capable 
 of distinguishing between AI-generated fake images and real images. The cues for distinguishing AI-generated images from real ones may appear from various aspects, like low-level artifacts, high-level semantics, etc. How
 ever, existing detectors often rely on single-view prior information or image features, leading to sub-optimal performance and limited robustness when facing cross-generator image detection. To address these issues, we 
@@ -62,9 +62,19 @@ Test Chameleon
 ```bash
 python test_Chaemleon.py
 ```
-### Checkpoints
-Our training checkpoints can be downloaded from [link](https://pan.baidu.com/s/1zBYtDykr8PzE9ORoJg9lnA?pwd=mffn).
+### 📦 Pre-trained Weights
+The pre-trained model checkpoints can be downloaded from [link](https://pan.baidu.com/s/1zBYtDykr8PzE9ORoJg9lnA?pwd=mffn).
 
-
+### ✍️ Citation
+If you find our work or code useful for your research, please cite:
+```bibtex
+@article{zhang2026mff,
+  title={MFF-Net: Multi-view Feature Fusion Network for AI-generated Image Detection},
+  author={Zhang, Hongji and Tan, Hao and Qin, Jinghui and Yang, Zhijing},
+  journal={Expert Systems with Applications},
+  pages={134394},
+  year={2026},
+  publisher={Elsevier}
+}
 
 
