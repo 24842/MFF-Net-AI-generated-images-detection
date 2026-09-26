@@ -63,7 +63,7 @@ Test Chameleon
 python test_Chaemleon.py
 ```
 ### 📦 Pre-trained Weights
-The pre-trained model checkpoints can be downloaded from [link](https://pan.baidu.com/s/1zBYtDykr8PzE9ORoJg9lnA?pwd=mffn).
+The pre-trained model checkpoints can be downloaded from [link](https://pan.baidu.com/s/1hdQiowOFbvKyPaISteaRcQ?pwd=mffn).
 
 ### ✍️ Citation
 If you find our work or code useful for your research, please cite:
