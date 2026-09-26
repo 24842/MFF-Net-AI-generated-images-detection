@@ -1,6 +1,7 @@
 # MFF-Net: Multi-view feature fusion network for AI-generated image detection
 ## 📖Introduction
-This repository contains the implementation of the paper: "MFF-Net: Multi-view feature fusion network for AI-generated image detection". [link](https://www.sciencedirect.com/science/article/pii/S0957417426032987lid=rcjae1x11dvv&utm_source=braze&utm_medium=email&utm_campaign=STMJ_220042_AUTH_SERV_PPUB&utm_content=220042_AUTSERVOTR_MAIN_NOAB_SINGLE_ALL&utm_term=STMJ_ONB_PUB_AUTH_STMJ_20260520&DGCID=STMJ_220042_AUTH_SERV_PPUB&se_la=68fdf2e64b8d62a816765c07&se_pr=4579622313)
+This repository contains the implementation of the paper: "MFF-Net: Multi-view feature fusion network for AI-generated image detection". 
+[(Paper)](https://www.sciencedirect.com/science/article/pii/S0957417426032987lid=rcjae1x11dvv&utm_source=braze&utm_medium=email&utm_campaign=STMJ_220042_AUTH_SERV_PPUB&utm_content=220042_AUTSERVOTR_MAIN_NOAB_SINGLE_ALL&utm_term=STMJ_ONB_PUB_AUTH_STMJ_20260520&DGCID=STMJ_220042_AUTH_SERV_PPUB&se_la=68fdf2e64b8d62a816765c07&se_pr=4579622313)
 
 ### 📚Abstract:
 With the rapid advancement of generative models, the emergence of high-fidelity synthetic images has raised significant security concerns regarding disinformation and forgery, leading to the demand for detectors capable 
